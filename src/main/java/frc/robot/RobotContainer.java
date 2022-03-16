@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -27,6 +28,7 @@ public class RobotContainer {
   public static XboxController xbox2;
 
   public static AHRS gyro;
+  public static ColorSensorV3 colorSensor;
 
   private final DriveTrain swerve;
   private final DriveXbox driveXbox;
@@ -46,6 +48,7 @@ public class RobotContainer {
     xbox2 = new XboxController(Constants.xbox_controller_2);
 
     gyro = new AHRS();
+    colorSensor = new ColorSensorV3(Constants.i2cPort);
 
     swerve = new DriveTrain(gyro);
     driveXbox = new DriveXbox(swerve);
@@ -57,7 +60,7 @@ public class RobotContainer {
     intakeXbox.addRequirements(intake);
     intake.setDefaultCommand(intakeXbox);
 
-    indexer = new Indexer();
+    indexer = new Indexer(colorSensor);
     indexerXbox = new IndexerXbox(indexer);
     indexerXbox.addRequirements(indexer);
     indexer.setDefaultCommand(indexerXbox);
