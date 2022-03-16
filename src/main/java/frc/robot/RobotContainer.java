@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -27,12 +28,16 @@ public class RobotContainer {
   public static XboxController xbox2;
 
   public static AHRS gyro;
+  public static ColorSensorV3 colorSensor;
 
   private final DriveTrain swerve;
   private final DriveXbox driveXbox;
 
   private final Intake intake;
   private final IntakeXbox intakeXbox;
+
+  private final Indexer indexer;
+  private final IndexerXbox indexerXbox;
 
   public static boolean isFieldOriented;
 
@@ -43,6 +48,7 @@ public class RobotContainer {
     xbox2 = new XboxController(Constants.xbox_controller_2);
 
     gyro = new AHRS();
+    colorSensor = new ColorSensorV3(Constants.i2cPort);
 
     swerve = new DriveTrain(gyro);
     driveXbox = new DriveXbox(swerve);
@@ -53,6 +59,12 @@ public class RobotContainer {
     intakeXbox = new IntakeXbox(intake);
     intakeXbox.addRequirements(intake);
     intake.setDefaultCommand(intakeXbox);
+
+    indexer = new Indexer(colorSensor);
+    indexerXbox = new IndexerXbox(indexer);
+    indexerXbox.addRequirements(indexer);
+    indexer.setDefaultCommand(indexerXbox);
+
 
     isFieldOriented = true;
 
@@ -71,6 +83,10 @@ public class RobotContainer {
     start.whenPressed(new ToggleFieldOriented());
     Button subStart = new JoystickButton(xbox2, Constants.start_button_num);
     subStart.whenPressed(new ToggleFieldOriented());
+    Button B = new JoystickButton(xbox1, Constants.b_button_num);
+    B.whenPressed(new ToggleIntake(intake));
+    Button subB = new JoystickButton(xbox2, Constants.b_button_num);
+    subB.whenPressed(new ToggleIntake(intake));
   }
 
   /**

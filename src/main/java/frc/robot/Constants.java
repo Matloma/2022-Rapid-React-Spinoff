@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.I2C;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -30,6 +33,11 @@ public final class Constants {
         public static final int intake_motor_port = 0;                                        //CAN
 
     //Indexer Ports
+        public static final int front_left_indexer_motor_port = 0;                            //CAN
+        public static final int front_right_indexer_motor_port = 0;                           //CAN
+        public static final int back_left_indexer_motor_port = 0;                             //CAN
+        public static final int back_right_indexer_motor_port = 0;                            //CAN
+        public final static I2C.Port i2cPort = I2C.Port.kOnboard;                             //I2C
 
     //Shooter Ports
 
@@ -58,6 +66,7 @@ public final class Constants {
         
     //Variables
         public static double max_throttle = 0.5;
+        public static String teamColor = DriverStation.getAlliance().toString().toLowerCase();
         
 
 }
