@@ -8,9 +8,8 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.DriveXbox;
-import frc.robot.commands.ToggleFieldOriented;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -32,6 +31,9 @@ public class RobotContainer {
   private final DriveTrain swerve;
   private final DriveXbox driveXbox;
 
+  private final Intake intake;
+  private final IntakeXbox intakeXbox;
+
   public static boolean isFieldOriented;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -46,6 +48,11 @@ public class RobotContainer {
     driveXbox = new DriveXbox(swerve);
     driveXbox.addRequirements(swerve);
     swerve.setDefaultCommand(driveXbox);
+
+    intake = new Intake();
+    intakeXbox = new IntakeXbox(intake);
+    intakeXbox.addRequirements(intake);
+    intake.setDefaultCommand(intakeXbox);
 
     isFieldOriented = true;
 
@@ -62,6 +69,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     Button start = new JoystickButton(xbox1, Constants.start_button_num);
     start.whenPressed(new ToggleFieldOriented());
+    Button subStart = new JoystickButton(xbox2, Constants.start_button_num);
+    subStart.whenPressed(new ToggleFieldOriented());
   }
 
   /**

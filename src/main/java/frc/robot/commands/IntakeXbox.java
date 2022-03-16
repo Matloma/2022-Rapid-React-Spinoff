@@ -5,18 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 
-public class DriveXbox extends CommandBase {
+public class IntakeXbox extends CommandBase {
 
-  DriveTrain swerve;
+  Intake intake;
 
-  /** Creates a new DriveXbox. */
-  public DriveXbox(DriveTrain swerve) {
-    this.swerve = swerve;
-    addRequirements(swerve);
+  /** Creates a new IntakeXbox. */
+  public IntakeXbox(Intake intake) {
+    this.intake = intake;
+    addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,17 +26,13 @@ public class DriveXbox extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.isFieldOriented){
-      swerve.driveXbox(RobotContainer.xbox1, Constants.max_throttle, true);
-    } else {
-      swerve.driveXbox(RobotContainer.xbox1, Constants.max_throttle, false);
-    }
+    intake.spinIntake(RobotContainer.xbox1, RobotContainer.xbox2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    swerve.stop();
+    intake.stop();
   }
 
   // Returns true when the command should end.
