@@ -30,6 +30,10 @@ public final class Constants {
         public static final int intake_motor_port = 0;                                        //CAN
 
     //Indexer Ports
+        public static final int front_left_indexer_motor_port = 0;                            //CAN
+        public static final int front_right_indexer_motor_port = 0;                           //CAN
+        public static final int back_left_indexer_motor_port = 0;                             //CAN
+        public static final int back_right_indexer_motor_port = 0;                            //CAN
 
     //Shooter Ports
 
