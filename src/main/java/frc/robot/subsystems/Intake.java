@@ -81,6 +81,7 @@ public class Intake extends SubsystemBase {
 
   public void stop(){
     intakeMotor.set(TalonSRXControlMode.PercentOutput, 0);
+    intakeSpeed = 0;
   }
 
   @Override

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -61,6 +62,15 @@ public class Indexer extends SubsystemBase {
   public void setAllSpeed(double speed){
     setFrontSpeed(speed);
     setBackSpeed(speed);
+  }
+
+  public void indexXbox(XboxController xbox1, XboxController xbox2){
+    setAllSpeed(xbox1.getLeftTriggerAxis());
+    setAllSpeed(xbox2.getLeftTriggerAxis());
+  }
+
+  public void stop(){
+    setAllSpeed(0);
   }
 
   @Override

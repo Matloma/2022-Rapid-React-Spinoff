@@ -34,6 +34,9 @@ public class RobotContainer {
   private final Intake intake;
   private final IntakeXbox intakeXbox;
 
+  private final Indexer indexer;
+  private final IndexerXbox indexerXbox;
+
   public static boolean isFieldOriented;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -54,6 +57,12 @@ public class RobotContainer {
     intakeXbox.addRequirements(intake);
     intake.setDefaultCommand(intakeXbox);
 
+    indexer = new Indexer();
+    indexerXbox = new IndexerXbox(indexer);
+    indexerXbox.addRequirements(indexer);
+    indexer.setDefaultCommand(indexerXbox);
+
+
     isFieldOriented = true;
 
     // Configure the button bindings
@@ -71,6 +80,10 @@ public class RobotContainer {
     start.whenPressed(new ToggleFieldOriented());
     Button subStart = new JoystickButton(xbox2, Constants.start_button_num);
     subStart.whenPressed(new ToggleFieldOriented());
+    Button B = new JoystickButton(xbox1, Constants.b_button_num);
+    B.whenPressed(new ToggleIntake(intake));
+    Button subB = new JoystickButton(xbox2, Constants.b_button_num);
+    subB.whenPressed(new ToggleIntake(intake));
   }
 
   /**
