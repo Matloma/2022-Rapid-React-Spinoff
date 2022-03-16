@@ -4,8 +4,8 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -25,7 +25,7 @@ public class Intake extends SubsystemBase {
 
   double intakeSpeed;
   
-  TalonSRX intakeMotor;
+  TalonFX intakeMotor;
 
   /** Creates a new Intake. */
   public Intake() {
@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
 
     intakeSpeed = 0;
 
-    intakeMotor = new TalonSRX(Constants.intake_motor_port);
+    intakeMotor = new TalonFX(Constants.intake_motor_port);
 
     setIntakeUp();
   }
@@ -44,23 +44,23 @@ public class Intake extends SubsystemBase {
   public void spinIntake(XboxController xbox1, XboxController xbox2){
     if(xbox1.getLeftBumper()||xbox2.getLeftBumper()){
       if (intakeSpeed != -0.5){
-        intakeMotor.set(TalonSRXControlMode.PercentOutput, -0.5);
+        intakeMotor.set(TalonFXControlMode.PercentOutput, -0.5);
         intakeSpeed = -0.5;
       }
     } else {
       if(xbox1.getLeftTriggerAxis()>0.05){
         if(xbox1.getLeftTriggerAxis()>=intakeSpeed+0.05 || xbox1.getLeftTriggerAxis()<=intakeSpeed-0.05){
-          intakeMotor.set(TalonSRXControlMode.PercentOutput, xbox1.getLeftTriggerAxis());
+          intakeMotor.set(TalonFXControlMode.PercentOutput, xbox1.getLeftTriggerAxis());
           intakeSpeed = xbox1.getLeftTriggerAxis();
         }
       } else if (xbox2.getLeftTriggerAxis()>0.05){
         if(xbox2.getLeftTriggerAxis()>=intakeSpeed+0.05 || xbox2.getLeftTriggerAxis()<=intakeSpeed-0.05){
-          intakeMotor.set(TalonSRXControlMode.PercentOutput, xbox2.getLeftTriggerAxis());
+          intakeMotor.set(TalonFXControlMode.PercentOutput, xbox2.getLeftTriggerAxis());
           intakeSpeed = xbox2.getLeftTriggerAxis();
         }
       } else {
         if(intakeSpeed != 0){
-          intakeMotor.set(TalonSRXControlMode.PercentOutput, 0);
+          intakeMotor.set(TalonFXControlMode.PercentOutput, 0);
           intakeSpeed = 0;
         }
       }
@@ -80,7 +80,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void stop(){
-    intakeMotor.set(TalonSRXControlMode.PercentOutput, 0);
+    intakeMotor.set(TalonFXControlMode.PercentOutput, 0);
     intakeSpeed = 0;
   }
 

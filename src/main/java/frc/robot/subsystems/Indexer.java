@@ -4,7 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
@@ -16,8 +18,8 @@ import frc.robot.Constants;
 
 public class Indexer extends SubsystemBase {
 
-  TalonSRX frontLeftMotor;
-  TalonSRX frontRightMotor;
+  TalonFX frontLeftMotor;
+  TalonFX frontRightMotor;
   TalonSRX backLeftMotor;
   TalonSRX backRightMotor;
 
@@ -37,8 +39,8 @@ public class Indexer extends SubsystemBase {
   /** Creates a new Indexer. */
   public Indexer(ColorSensorV3 colorSensor) {
 
-    frontLeftMotor = new TalonSRX(Constants.front_left_indexer_motor_port);
-    frontRightMotor = new TalonSRX(Constants.front_right_indexer_motor_port);
+    frontLeftMotor = new TalonFX(Constants.front_left_indexer_motor_port);
+    frontRightMotor = new TalonFX(Constants.front_right_indexer_motor_port);
     backLeftMotor= new TalonSRX(Constants.back_left_indexer_motor_port);
     backRightMotor= new TalonSRX(Constants.back_right_indexer_motor_port);
 
@@ -71,12 +73,12 @@ public class Indexer extends SubsystemBase {
 
   public void setFrontSpeed(double speed){
     if(Math.abs(speed) >= Math.abs(frontSpeed)+0.05 || Math.abs(speed) <= Math.abs(frontSpeed)-0.05){
-      frontLeftMotor.set(TalonSRXControlMode.PercentOutput, speed);
-      frontRightMotor.set(TalonSRXControlMode.PercentOutput, speed);
+      frontLeftMotor.set(TalonFXControlMode.PercentOutput, speed);
+      frontRightMotor.set(TalonFXControlMode.PercentOutput, speed);
       frontSpeed = speed;
     } else if (Math.abs(speed) <= 0.05 && frontSpeed != 0){
-      frontLeftMotor.set(TalonSRXControlMode.PercentOutput, 0);
-      frontRightMotor.set(TalonSRXControlMode.PercentOutput, 0);
+      frontLeftMotor.set(TalonFXControlMode.PercentOutput, 0);
+      frontRightMotor.set(TalonFXControlMode.PercentOutput, 0);
       frontSpeed = 0;
     }
   }
