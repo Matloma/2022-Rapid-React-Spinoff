@@ -15,16 +15,19 @@ package frc.robot;
 public final class Constants {
 
     //Swerve Drive Ports
-        public static final int front_left_swerve_drive_port = 0;
-        public static final int front_left_swerve_steer_port = 1;
-        public static final int front_right_swerve_drive_port = 2;
-        public static final int front_right_swerve_steer_port = 3;
-        public static final int back_left_swerve_drive_port = 4;
-        public static final int back_left_swerve_steer_port = 5;
-        public static final int back_right_swerve_drive_port = 6;
-        public static final int back_right_swerve_steer_port = 7;
+        public static final int front_left_swerve_drive_port = 2;                             //CAN
+        public static final int front_left_swerve_steer_port = 1;                             //CAN
+        public static final int front_right_swerve_drive_port = 4;                            //CAN
+        public static final int front_right_swerve_steer_port = 3;                            //CAN
+        public static final int back_left_swerve_drive_port = 6;                              //CAN
+        public static final int back_left_swerve_steer_port = 5;                              //CAN
+        public static final int back_right_swerve_drive_port = 8;                             //CAN
+        public static final int back_right_swerve_steer_port = 7;                             //CAN
 
     //Intake Ports
+        public static final int intake_forward_solenoid_port = 1;                             //PCM
+        public static final int intake_reverse_solenoid_port = 0;                             //PCM
+        public static final int intake_motor_port = 0;                                        //CAN
 
     //Indexer Ports
 
@@ -33,8 +36,8 @@ public final class Constants {
     //Climber Ports
 
     //Other Ports
-        public static final int xbox_controller_1 = 0;
-        public static final int xbox_controller_2 = 1;
+        public static final int xbox_controller_1 = 0;                                        //USB - PC
+        public static final int xbox_controller_2 = 1;                                        //USB - PC
 
     //Constants
         public static final double wheel_distance_from_center_left_right = 0.296525;
@@ -54,7 +57,7 @@ public final class Constants {
         public static final int rightj_button_num = 9;
         
     //Variables
-        public static double max_throttle;
+        public static double max_throttle = 0.5;
         
 
 }
