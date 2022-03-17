@@ -77,10 +77,7 @@ public class DriveTrain extends SubsystemBase {
     frontLeft = states[0];
     frontRight = states[1];
     backLeft = states[2];
-    backRight = states[3];
-
-    
-    
+    backRight = states[3];    
   }
 
   public void drive(double y, double x, double r){

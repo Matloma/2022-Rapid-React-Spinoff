@@ -7,8 +7,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,10 +14,6 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class Intake extends SubsystemBase {
-
-  PneumaticHub hub;
-
-  Compressor comp;
 
   Solenoid fs;
   Solenoid rs;
@@ -32,12 +26,9 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Intake() {
-    this.hub=RobotContainer.hub;
 
-    comp = hub.makeCompressor();
-
-    fs = hub.makeSolenoid(Constants.intake_forward_solenoid_port);
-    rs = hub.makeSolenoid(Constants.intake_reverse_solenoid_port);
+    fs = RobotContainer.hub.makeSolenoid(Constants.intake_forward_solenoid_port);
+    rs = RobotContainer.hub.makeSolenoid(Constants.intake_reverse_solenoid_port);
 
     intakeSpeed = 0;
 

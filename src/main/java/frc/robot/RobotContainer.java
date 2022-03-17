@@ -76,7 +76,7 @@ public class RobotContainer {
     climberXbox.addRequirements(climber);
     climber.setDefaultCommand(climberXbox);
 
-    hub = new PneumaticHub();
+    hub = new PneumaticHub(19);
 
     isFieldOriented = true;
 
