@@ -15,6 +15,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,6 +31,7 @@ public class RobotContainer {
 
   public static AHRS gyro;
   public static ColorSensorV3 colorSensor;
+  public static LimeLight limelight;
 
   private final DriveTrain swerve;
   private final DriveXbox driveXbox;
@@ -42,6 +44,9 @@ public class RobotContainer {
 
   private final Climber climber;
   private final ClimberXbox climberXbox;
+
+  private final Shooter shooter;
+  private final ShooterXbox shooterXbox;
 
   public static PneumaticHub hub;
 
@@ -57,6 +62,7 @@ public class RobotContainer {
 
     gyro = new AHRS();
     colorSensor = new ColorSensorV3(Constants.i2cPort);
+    limelight = new LimeLight();
 
     swerve = new DriveTrain(gyro);
     driveXbox = new DriveXbox(swerve);
@@ -78,6 +84,11 @@ public class RobotContainer {
     climberXbox.addRequirements(climber);
     climber.setDefaultCommand(climberXbox);
 
+    shooter = new Shooter(limelight);
+    shooterXbox = new ShooterXbox(shooter);
+    shooterXbox.addRequirements(shooter);
+    shooter.setDefaultCommand(shooterXbox);
+
     isFieldOriented = true;
 
     // Configure the button bindings
@@ -91,14 +102,31 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    Button back = new JoystickButton(xbox1, Constants.back_button_num);
+    back.whenPressed(new ToggleFieldOriented());
     Button start = new JoystickButton(xbox1, Constants.start_button_num);
-    start.whenPressed(new ToggleFieldOriented());
-    Button subStart = new JoystickButton(xbox2, Constants.start_button_num);
-    subStart.whenPressed(new ToggleFieldOriented());
-    Button B = new JoystickButton(xbox1, Constants.b_button_num);
-    B.whenPressed(new ToggleIntake(intake));
+    start.whenPressed(new AlignWheelsForward(swerve));
+    Button LBumper = new JoystickButton(xbox1, Constants.left_button_num);
+    LBumper.whenPressed(new DecreaseSpeed(swerve));
+    Button RBumper = new JoystickButton(xbox1, Constants.right_button_num);
+    RBumper.whenPressed(new IncreaseSpeed(swerve));
+    Button Y = new JoystickButton(xbox1, Constants.y_button_num);
+    Y.whenPressed(new ToggleIntake(intake));
+    Button subY = new JoystickButton(xbox2, Constants.y_button_num);
+    subY.whenPressed(new ToggleIntake(intake));
+    Button subRBumper = new JoystickButton(xbox2, Constants.right_button_num);
+    subRBumper.whenPressed(new Shoot(shooter));
+    subRBumper.whenReleased(new StopShoot(shooter));
+    Button subPOVLeft = new POVButton(xbox2, -90);
+    subPOVLeft.whenPressed(new OffsetLeft(shooter));
+    Button subPOVRight = new POVButton(xbox2, 90);
+    subPOVRight.whenPressed(new OffsetRight(shooter));
+    Button subA = new JoystickButton(xbox2, Constants.a_button_num);
+    subA.whenPressed(new IntakeBalls(intake));
+    subA.whenReleased(new StopIntakeBalls(intake));
     Button subB = new JoystickButton(xbox2, Constants.b_button_num);
-    subB.whenPressed(new ToggleIntake(intake));
+    subB.whenPressed(new IndexBalls(indexer));
+    subB.whenReleased(new StopIndexBalls(indexer));
   }
 
   /**

@@ -101,16 +101,19 @@ public class Indexer extends SubsystemBase {
   }
 
   public void indexXbox(XboxController xbox1, XboxController xbox2){
+    
     setAllSpeed((xbox1.getLeftTriggerAxis()+xbox2.getLeftTriggerAxis())/2);
     while(enemyColor==getColorValue()){
       setAllSpeed(-1);
     }
+    
   }
 
   public void stop(){
     setAllSpeed(0);
   }
 
+  
   public int getColorValue(){
     if(colorSensor.getProximity()<6){
       Color detectedColor = colorSensor.getColor();
@@ -123,6 +126,7 @@ public class Indexer extends SubsystemBase {
     }
     return -1;
   }
+  
 
   @Override
   public void periodic() {

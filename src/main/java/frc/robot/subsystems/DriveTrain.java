@@ -150,4 +150,19 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  public void resetWheelsToForward(){
+    FLS.set(TalonFXControlMode.Position, 0);
+    FRS.set(TalonFXControlMode.Position, 0);
+    BLS.set(TalonFXControlMode.Position, 0);
+    BRS.set(TalonFXControlMode.Position, 0);
+  }
+
+  public void slowDown(){
+    Constants.max_throttle -= 0.1;
+  }
+
+  public void speedUp(){
+    Constants.max_throttle += 0.1;
+  }
 }

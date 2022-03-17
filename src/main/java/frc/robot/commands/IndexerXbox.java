@@ -26,7 +26,7 @@ public class IndexerXbox extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    indexer.indexXbox(RobotContainer.xbox1, RobotContainer.xbox2);
+    //indexer.indexXbox(RobotContainer.xbox1, RobotContainer.xbox2);
   }
 
   // Called once the command ends or is interrupted.

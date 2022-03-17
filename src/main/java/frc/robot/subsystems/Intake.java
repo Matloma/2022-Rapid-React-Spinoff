@@ -67,6 +67,11 @@ public class Intake extends SubsystemBase {
     }
   }
 
+  public void intake(){
+    intakeMotor.set(TalonFXControlMode.PercentOutput, 1);
+    intakeSpeed = 1;
+  }
+
   public void toggleIntake(){
     isUp = !isUp;
     fs.toggle();
