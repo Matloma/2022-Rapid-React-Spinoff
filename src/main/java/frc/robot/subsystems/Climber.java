@@ -12,23 +12,20 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class Climber extends SubsystemBase {
-
-  PneumaticHub hub;
 
   TalonFX telescopingMotor;
   Solenoid modeSelector;
   boolean FAST;
   double armSpeed;
+  PneumaticHub hub;
 
 
   /** Creates a new Climber. */
-  public Climber() {
+  public Climber(PneumaticHub hub) {
 
-    this.hub=RobotContainer.hub;
-
+    this.hub = hub;
     telescopingMotor = new TalonFX(Constants.telescoping_motor_port);
     modeSelector = hub.makeSolenoid(Constants.telescoping_power_mode_solenoid_port);
     modeSelector.set(true);

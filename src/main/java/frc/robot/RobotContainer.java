@@ -50,6 +50,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
+    hub = new PneumaticHub(53);
+
     xbox1 = new XboxController(Constants.xbox_controller_1);
     xbox2 = new XboxController(Constants.xbox_controller_2);
 
@@ -61,7 +63,7 @@ public class RobotContainer {
     driveXbox.addRequirements(swerve);
     swerve.setDefaultCommand(driveXbox);
 
-    intake = new Intake();
+    intake = new Intake(hub);
     intakeXbox = new IntakeXbox(intake);
     intakeXbox.addRequirements(intake);
     intake.setDefaultCommand(intakeXbox);
@@ -71,12 +73,10 @@ public class RobotContainer {
     indexerXbox.addRequirements(indexer);
     indexer.setDefaultCommand(indexerXbox);
 
-    climber = new Climber();
+    climber = new Climber(hub);
     climberXbox = new ClimberXbox(climber);
     climberXbox.addRequirements(climber);
     climber.setDefaultCommand(climberXbox);
-
-    hub = new PneumaticHub(19);
 
     isFieldOriented = true;
 

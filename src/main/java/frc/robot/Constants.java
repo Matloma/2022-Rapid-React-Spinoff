@@ -53,8 +53,6 @@ public final class Constants {
         public static final double wheel_distance_from_center_left_right = 0.296525;
         public static final double wheel_distance_from_center_front_back = 0.295775;
         public static final double pos_units_per_degree = 72.857777778;
-        public static final double evo_shifter_units_per_centimeter_mode_1 = 0;
-        public static final double evo_shifter_units_per_centimeter_mode_2 = 0;
 
     //Xbox Controller Button Numbers
         public static final int a_button_num = 0;

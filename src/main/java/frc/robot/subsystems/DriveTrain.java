@@ -78,6 +78,19 @@ public class DriveTrain extends SubsystemBase {
     frontRight = states[1];
     backLeft = states[2];
     backRight = states[3];    
+
+    setPositions0();
+  }
+
+  public void setPositions0(){
+    FLD.setSelectedSensorPosition(0);
+    FRD.setSelectedSensorPosition(0);
+    BLD.setSelectedSensorPosition(0);
+    BRD.setSelectedSensorPosition(0);
+    FLS.setSelectedSensorPosition(0);
+    FRS.setSelectedSensorPosition(0);
+    BLS.setSelectedSensorPosition(0);
+    BRS.setSelectedSensorPosition(0);
   }
 
   public void drive(double y, double x, double r){
