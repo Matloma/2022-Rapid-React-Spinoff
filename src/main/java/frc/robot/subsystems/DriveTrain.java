@@ -65,6 +65,9 @@ public class DriveTrain extends SubsystemBase {
     BLposition = new Translation2d(-Constants.wheel_distance_from_center_front_back, Constants.wheel_distance_from_center_left_right);
     BRposition = new Translation2d(-Constants.wheel_distance_from_center_front_back, -Constants.wheel_distance_from_center_left_right);
 
+    FRD.setInverted(true);
+    BRD.setInverted(true);
+
     kinematics = new SwerveDriveKinematics(FLposition, FRposition, BLposition, BRposition);
 
     speeds = new ChassisSpeeds(0, 0, 0);
@@ -75,6 +78,8 @@ public class DriveTrain extends SubsystemBase {
     frontRight = states[1];
     backLeft = states[2];
     backRight = states[3];
+
+    
     
   }
 

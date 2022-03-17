@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -39,6 +40,11 @@ public class RobotContainer {
   private final Indexer indexer;
   private final IndexerXbox indexerXbox;
 
+  private final Climber climber;
+  private final ClimberXbox climberXbox;
+
+  public static PneumaticHub hub;
+
   public static boolean isFieldOriented;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -65,6 +71,12 @@ public class RobotContainer {
     indexerXbox.addRequirements(indexer);
     indexer.setDefaultCommand(indexerXbox);
 
+    climber = new Climber();
+    climberXbox = new ClimberXbox(climber);
+    climberXbox.addRequirements(climber);
+    climber.setDefaultCommand(climberXbox);
+
+    hub = new PneumaticHub();
 
     isFieldOriented = true;
 
