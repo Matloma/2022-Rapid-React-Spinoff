@@ -4,11 +4,10 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,27 +15,28 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
 
-  Compressor comp;
-
   Solenoid fs;
   Solenoid rs;
 
   boolean isUp;
 
   double intakeSpeed;
+
+  PneumaticHub hub;
   
-  TalonSRX intakeMotor;
+  TalonFX intakeMotor;
 
   /** Creates a new Intake. */
-  public Intake() {
-    comp = new Compressor(PneumaticsModuleType.REVPH);
+  public Intake(PneumaticHub hub) {
 
-    fs = new Solenoid(PneumaticsModuleType.REVPH, Constants.intake_forward_solenoid_port);
-    rs = new Solenoid(PneumaticsModuleType.REVPH, Constants.intake_reverse_solenoid_port);
+    this.hub = hub;
+
+    fs = hub.makeSolenoid(Constants.intake_forward_solenoid_port);
+    rs = hub.makeSolenoid(Constants.intake_reverse_solenoid_port);
 
     intakeSpeed = 0;
 
-    intakeMotor = new TalonSRX(Constants.intake_motor_port);
+    intakeMotor = new TalonFX(Constants.intake_motor_port);
 
     setIntakeUp();
   }
@@ -44,27 +44,32 @@ public class Intake extends SubsystemBase {
   public void spinIntake(XboxController xbox1, XboxController xbox2){
     if(xbox1.getLeftBumper()||xbox2.getLeftBumper()){
       if (intakeSpeed != -0.5){
-        intakeMotor.set(TalonSRXControlMode.PercentOutput, -0.5);
+        intakeMotor.set(TalonFXControlMode.PercentOutput, -0.5);
         intakeSpeed = -0.5;
       }
     } else {
       if(xbox1.getLeftTriggerAxis()>0.05){
         if(xbox1.getLeftTriggerAxis()>=intakeSpeed+0.05 || xbox1.getLeftTriggerAxis()<=intakeSpeed-0.05){
-          intakeMotor.set(TalonSRXControlMode.PercentOutput, xbox1.getLeftTriggerAxis());
+          intakeMotor.set(TalonFXControlMode.PercentOutput, xbox1.getLeftTriggerAxis());
           intakeSpeed = xbox1.getLeftTriggerAxis();
         }
       } else if (xbox2.getLeftTriggerAxis()>0.05){
         if(xbox2.getLeftTriggerAxis()>=intakeSpeed+0.05 || xbox2.getLeftTriggerAxis()<=intakeSpeed-0.05){
-          intakeMotor.set(TalonSRXControlMode.PercentOutput, xbox2.getLeftTriggerAxis());
+          intakeMotor.set(TalonFXControlMode.PercentOutput, xbox2.getLeftTriggerAxis());
           intakeSpeed = xbox2.getLeftTriggerAxis();
         }
       } else {
         if(intakeSpeed != 0){
-          intakeMotor.set(TalonSRXControlMode.PercentOutput, 0);
+          intakeMotor.set(TalonFXControlMode.PercentOutput, 0);
           intakeSpeed = 0;
         }
       }
     }
+  }
+
+  public void intake(){
+    intakeMotor.set(TalonFXControlMode.PercentOutput, 1);
+    intakeSpeed = 1;
   }
 
   public void toggleIntake(){
@@ -80,7 +85,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void stop(){
-    intakeMotor.set(TalonSRXControlMode.PercentOutput, 0);
+    intakeMotor.set(TalonFXControlMode.PercentOutput, 0);
     intakeSpeed = 0;
   }
 

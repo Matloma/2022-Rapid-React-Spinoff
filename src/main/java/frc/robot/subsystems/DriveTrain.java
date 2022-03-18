@@ -65,6 +65,9 @@ public class DriveTrain extends SubsystemBase {
     BLposition = new Translation2d(-Constants.wheel_distance_from_center_front_back, Constants.wheel_distance_from_center_left_right);
     BRposition = new Translation2d(-Constants.wheel_distance_from_center_front_back, -Constants.wheel_distance_from_center_left_right);
 
+    FRD.setInverted(true);
+    BRD.setInverted(true);
+
     kinematics = new SwerveDriveKinematics(FLposition, FRposition, BLposition, BRposition);
 
     speeds = new ChassisSpeeds(0, 0, 0);
@@ -74,8 +77,20 @@ public class DriveTrain extends SubsystemBase {
     frontLeft = states[0];
     frontRight = states[1];
     backLeft = states[2];
-    backRight = states[3];
-    
+    backRight = states[3];    
+
+    setPositions0();
+  }
+
+  public void setPositions0(){
+    FLD.setSelectedSensorPosition(0);
+    FRD.setSelectedSensorPosition(0);
+    BLD.setSelectedSensorPosition(0);
+    BRD.setSelectedSensorPosition(0);
+    FLS.setSelectedSensorPosition(0);
+    FRS.setSelectedSensorPosition(0);
+    BLS.setSelectedSensorPosition(0);
+    BRS.setSelectedSensorPosition(0);
   }
 
   public void drive(double y, double x, double r){
@@ -134,5 +149,20 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void resetWheelsToForward(){
+    FLS.set(TalonFXControlMode.Position, 0);
+    FRS.set(TalonFXControlMode.Position, 0);
+    BLS.set(TalonFXControlMode.Position, 0);
+    BRS.set(TalonFXControlMode.Position, 0);
+  }
+
+  public void slowDown(){
+    Constants.max_throttle -= 0.1;
+  }
+
+  public void speedUp(){
+    Constants.max_throttle += 0.1;
   }
 }

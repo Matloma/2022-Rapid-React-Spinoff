@@ -6,16 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Climber;
 
-public class IntakeXbox extends CommandBase {
+public class ClimberXbox extends CommandBase {
 
-  Intake intake;
+  Climber climber;
 
-  /** Creates a new IntakeXbox. */
-  public IntakeXbox(Intake intake) {
-    this.intake = intake;
-    addRequirements(intake);
+  /** Creates a new ClimberXbox. */
+  public ClimberXbox(Climber climber) {
+    this.climber = climber;
+    addRequirements(climber);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,13 +26,13 @@ public class IntakeXbox extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //intake.spinIntake(RobotContainer.xbox1, RobotContainer.xbox2);
+    climber.moveArmsXbox(RobotContainer.xbox1, RobotContainer.xbox2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.stop();
+    climber.stop();
   }
 
   // Returns true when the command should end.

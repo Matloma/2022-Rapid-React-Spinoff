@@ -28,8 +28,8 @@ public final class Constants {
         public static final int back_right_swerve_steer_port = 7;                             //CAN
 
     //Intake Ports
-        public static final int intake_forward_solenoid_port = 1;                             //PCM
-        public static final int intake_reverse_solenoid_port = 0;                             //PCM
+        public static final int intake_forward_solenoid_port = 1;                             //PH
+        public static final int intake_reverse_solenoid_port = 0;                             //PH
         public static final int intake_motor_port = 0;                                        //CAN
 
     //Indexer Ports
@@ -37,11 +37,21 @@ public final class Constants {
         public static final int front_right_indexer_motor_port = 0;                           //CAN
         public static final int back_left_indexer_motor_port = 0;                             //CAN
         public static final int back_right_indexer_motor_port = 0;                            //CAN
-        public final static I2C.Port i2cPort = I2C.Port.kOnboard;                             //I2C
+        public static final I2C.Port i2cPort = I2C.Port.kOnboard;                             //I2C
 
     //Shooter Ports
+        public static final int turret_motor_port = 15;                                       //CAN
+        public static final int flywheel_motor_port = 13;                                     //CAN
+        public static final int flywheel_motor_port_2 = 14;                                   //CAN
+
+        //LIMELIGHT Constants
+        public static final double camera_angle = 0;
+        public static final double hub_height = 0;
+        public static final double LimeLightHeight = 0;
 
     //Climber Ports
+        public static final int telescoping_motor_port = 16;                                  //CAN
+        public static final int telescoping_power_mode_solenoid_port = 2;                     //PH
 
     //Other Ports
         public static final int xbox_controller_1 = 0;                                        //USB - PC
@@ -51,6 +61,7 @@ public final class Constants {
         public static final double wheel_distance_from_center_left_right = 0.296525;
         public static final double wheel_distance_from_center_front_back = 0.295775;
         public static final double pos_units_per_degree = 72.857777778;
+        public static final double turret_units_per_degree = 227.601111;
 
     //Xbox Controller Button Numbers
         public static final int a_button_num = 0;
@@ -67,6 +78,30 @@ public final class Constants {
     //Variables
         public static double max_throttle = 0.5;
         public static String teamColor = DriverStation.getAlliance().toString().toLowerCase();
+        public static double shooterOffset = 0;
         
 
+        
+    //Controls
+        /*
+        Xbox 1
+
+        Back - Switch Field Oriented                          //Check
+        Start - Align Wheels to Start Position                //Check
+        Joysticks - Drive                                     //Check
+        Left Bumper - Decrease Speed by 0.5                   //Check
+        Right Bumper - Increase Speed by 0.5                  //Check
+
+        
+        Xbox 2 
+        
+        A - Intake
+        B - Indexer
+        Right Bumper - Shoot
+        Left Trigger - Climb Down
+        Right Trigger - Climb Up
+        POV Left - Shooter Left
+        POV Right - Shooter Right
+
+        */
 }
